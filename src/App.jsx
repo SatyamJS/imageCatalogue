@@ -10,35 +10,43 @@ function App() {
   })
   const [tile, setTile] = useState(0)
   const [intervalId, setIntervalId] = useState(null);
+
+  const handleClick = (e) => {
+    setState(prev => {
+      return { ...prev, current: e.target.name }
+    })
+  }
+
   let i = 0
   const images = state.places.map((place) => {
     if (place == state.current) {
-      return <img key={i++} style={{ filter: "grayscale(0%)" }} src={state.current} />
+      return <img key={i++} style={{ filter: "grayscale(0%)" }} src={state.current} onClick={handleClick} name={state.current} />
     }
     else {
 
-      return <img key={i++} src={place} />
+      return <img key={i++} src={place} onClick={handleClick} name={place}  />
     }
   }
   )
+  
 
-const intervalCallback = () => {
-  ref.current.click();
-};
+  const intervalCallback = () => {
+    ref.current.click();
+  };
 
-const handlePlayPause = (e) => {
-  const playBtn = document.querySelector(".play");
-  playBtn.classList.toggle("pause");
-  if (playBtn.className === "play") {
-    playBtn.innerHTML = "&#x23f5;";
-    clearInterval(intervalId);
-    setIntervalId(null);
-  } else {
-    const newIntervalId = setInterval(intervalCallback, 2000);
-    setIntervalId(newIntervalId);
-    playBtn.innerHTML = "&#x23f8;";
-  }
-};
+  const handlePlayPause = (e) => {
+    const playBtn = document.querySelector(".play");
+    playBtn.classList.toggle("pause");
+    if (playBtn.className === "play") {
+      playBtn.innerHTML = "&#x23f5;";
+      clearInterval(intervalId);
+      setIntervalId(null);
+    } else {
+      const newIntervalId = setInterval(intervalCallback, 2000);
+      setIntervalId(newIntervalId);
+      playBtn.innerHTML = "&#x23f8;";
+    }
+  };
 
 
 
