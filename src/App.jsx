@@ -1,13 +1,15 @@
-import { useState,useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 import './App.css'
 
 function App() {
+  const ref = useRef(null)
   const [state, setState] = useState({
     current: "dubai.jpg",
     places: ["dubai.jpg", "italy.jpg", "maldives.jpg", "japan.jpg", "bali.jpg"],
   })
-  const [tile,setTile]=useState(0)
+  const [tile, setTile] = useState(0)
+  const [intervalId, setIntervalId] = useState(null);
   let i = 0
   const images = state.places.map((place) => {
     if (place == state.current) {
@@ -20,43 +22,57 @@ function App() {
   }
   )
 
+const intervalCallback = () => {
+  ref.current.click();
+};
 
-  const handlePlayPause = (e) => {
-    const playBtn = document.querySelector(".play")
-    playBtn.classList.toggle("pause")
-    if (playBtn.className == "play") {
-      playBtn.innerHTML = "&#x23f5;"
-    }
-    else {
-      playBtn.innerHTML = "&#x23f8;"
-    }
-
-
+const handlePlayPause = (e) => {
+  const playBtn = document.querySelector(".play");
+  playBtn.classList.toggle("pause");
+  if (playBtn.className === "play") {
+    playBtn.innerHTML = "&#x23f5;";
+    clearInterval(intervalId);
+    setIntervalId(null);
+  } else {
+    const newIntervalId = setInterval(intervalCallback, 2000);
+    setIntervalId(newIntervalId);
+    playBtn.innerHTML = "&#x23f8;";
   }
-  
-  const handleNext = () => {
-    setTile(tile+1)
-    console.log(tile)
+};
+
+
+
+
+  useEffect(() => {
     setState(prevState => {
-      if (tile >= prevState.places.length-1) {
-        setTile(0)
+      if (tile > prevState.places.length - 1) {
         return ({ ...prevState, current: prevState.places[tile] })
       }
-      return ({ ...prevState, current: prevState.places[tile]})
+      else if (tile < 0) {
+        return ({ ...prevState, current: prevState.places[tile] })
+      }
+
+      return ({ ...prevState, current: prevState.places[tile] })
     })
+  }, [tile])
+
+  const handleNext = () => {
+    if (tile == state.places.length - 1) {
+      setTile(0)
+    } else {
+      setTile(tile => tile + 1)
+    }
+
 
   }
   const handlePrev = () => {
-    setTile(tile-1)
-    setTile(tile-1)
-    console.log(tile)
-    setState(prevState => {
-      if (tile <= 0) {
-        setTile(prevState.places.length-1)
-        return ({ ...prevState, current: prevState.places[tile] })
-      }
-      return ({ ...prevState, current: prevState.places[tile]})
-    })
+    if (tile <= 0) {
+      setTile(state.places.length - 1)
+    }
+    else {
+
+      setTile(tile => tile - 1)
+    }
 
   }
 
@@ -80,7 +96,7 @@ function App() {
           <div className='images'>
             <span className='prev' onClick={handlePrev}> &#8227; </span>
             {images}
-            <span className='next' onClick={handleNext}> &#8227;</span>
+            <span ref={ref} className='next' onClick={handleNext}> &#8227;</span>
           </div>
           <div >
             <span className='play' onClick={handlePlayPause}>&#x23f5; </span>
