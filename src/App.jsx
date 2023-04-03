@@ -20,7 +20,7 @@ function App() {
   let i = 0
   const images = state.places.map((place) => {
     if (place == state.current) {
-      return <img key={i++} style={{ filter: "grayscale(0%)" }} src={state.current} onClick={handleClick} name={state.current} />
+      return <img key={i++} style={{ filter: "grayscale(0%)",transform:"scale(1.1)" }} src={state.current} onClick={handleClick} name={state.current} />
     }
     else {
 
@@ -86,6 +86,9 @@ function App() {
 
   return (
     <>
+    <div className='heading'>
+      <h1>Image Carousel with Preview</h1>
+    </div>
       <div className='container'>
 
         <div className='selectedDiv'>
@@ -96,7 +99,8 @@ function App() {
             <h1>
               {state.current.split(".")[0].toUpperCase()}
             </h1>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci soluta numquam dignissimos voluptates eveniet? Mollitia deleniti reprehenderit quod illo id eaque pariatur dolorem alias velit delectus, nobis nulla itaque. Aliquam maiores omnis ad dicta reprehenderit, itaque iusto quas totam quos non ullam est recusandae repudiandae? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum amet, qui corporis, aliquid at laboriosam totam nulla rerum animi facere quaerat iure vel ipsa magni, quasi hic perspiciatis commodi assumenda atque. Labore maxime culpa animi ratione error? Modi asperiores aliquid voluptatum sed minima corrupti accusamus, saepe numquam nobis assumenda dolorum suscipit? Incidunt quaerat exercitationem quidem. Veritatis! Lorem ipsum, dolor sit amet consectetur adipisicing elit. Accusantium, voluptatibus voluptates nam unde veniam beatae hic, error alias eaque sequi consequuntur facilis ipsum culpa aliquam nostrum consequatur ipsam odit at inventore explicabo itaque nemo. Asperiores nemo voluptate corrupti molestias nisi! Repellat voluptatum</p>
+            <hr />
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci soluta numquam dignissimos voluptates eveniet? Mollitia deleniti reprehenderit quod illo id eaque pariatur dolorem alias velit delectus, nobis nulla itaque. Aliquam maiores omnis ad dicta reprehenderit, itaque iusto quas totam quos non ullam est recusandae repudiandae? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum amet, qui corporis, aliquid at laboriosam totam nulla rerum animi facere quaerat iure vel ipsa magni, quasi hic perspiciatis commodi assumenda atque. Labore maxime culpa animi ratione error? Modi asperiores aliquid voluptatum sed minima corrupti accusamus, saepe numquam nobis assumenda dolorum suscipit? Incidunt quaerat exercitationem quidem. Veritatis! Lorem ipsum, dolor sit amet con</p>
           </div>
         </div>
 
@@ -112,6 +116,7 @@ function App() {
         </div>
 
       </div>
+      <div className="footer" >Satyam Gupta &copy; 2023</div>
     </>
   )
 }
