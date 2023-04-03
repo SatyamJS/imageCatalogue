@@ -40,6 +40,8 @@
   flex-wrap: wrap;
   position: relative;
   align-items: center;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 .play{
   background-color: blue;
@@ -49,6 +51,7 @@
   display: flex;
   max-width: 600px;
   cursor: pointer;
+  user-select: none;
 }
 .images img{
   filter: grayscale(100%);
@@ -101,7 +104,7 @@
     margin-top: 20px;
   }
   .selectedImageDiv{
-    min-height: 250px;
+    height: 25vh;
     object-fit: contain;
   }
   .selectedDetailDiv{
